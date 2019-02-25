@@ -1,20 +1,26 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package view;
 
-import logic.UsernameLogic;
+import entity.Username;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import entity.Username;
+import logic.UsernameLogic;
 
 /**
  *
- * @author Shariar
+ * @author phucnguyen
  */
-public class UsernameTableViewNormal extends HttpServlet {
+public class UsernamesServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -32,31 +38,16 @@ public class UsernameTableViewNormal extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Username Table Simple</title>");            
+            out.println("<title>Servlet UsernamesServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            
-            UsernameLogic logic = new UsernameLogic();
-            List<Username> courses = logic.getAll();
-            out.println("<table align=\"center\" border=\"1\">");
-            out.println("<caption>Username</caption>");
-            out.println("<tr>");
-            out.println("<th>Player ID</th>");
-            out.println("<th>Username</th>");
-            out.println("</tr>");
-            for (Username course : courses) {
-                out.printf("<tr><td>%s</td><td>%s</td></tr>", course.getPlayerid(), course.getUsername());
-            }
-            out.println("<tr>");
-            out.println("<th>Player ID</th>");
-            out.println("<th>Username</th>");
-            out.println("</tr>");
-            out.println("</table>");
+            out.println("<h1>Servlet UsernamesServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
     }
-    
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -68,7 +59,20 @@ public class UsernameTableViewNormal extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        UsernameLogic logic = new UsernameLogic();
+        List<Username> usernames;
+                if (request.getAttribute("usernames")== null){
+                    usernames = logic.getAll();
+                    System.out.println("1");
+                }else {
+                    usernames = (List<Username>) request.getAttribute("usernames");
+                    System.out.println("2");
+                }
+                System.out.println(usernames);
+        request.setAttribute("usernames", usernames);
+          String destination = "/jsp/Usernames.jsp";
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher(destination);
+        requestDispatcher.forward(request, response);
     }
 
     /**
@@ -93,5 +97,6 @@ public class UsernameTableViewNormal extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Short description";
-    }
+    }// </editor-fold>
+
 }

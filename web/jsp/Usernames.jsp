@@ -4,6 +4,7 @@
     Author     : Shawn Emami
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="java.util.Map"%>
 <%@page import="java.util.Arrays"%>
 <%@page import="java.util.List"%>
@@ -49,10 +50,8 @@ License: You must have a valid license purchased only from themeforest(the above
         <!--RTL version:<link href="assets/demo/default/base/style.bundle.rtl.css" rel="stylesheet" type="text/css" />-->
         <!--end::Global Theme Styles -->
         <!--begin::Page Vendors Styles -->
-        <link href="/assets/vendors/custom/fullcalendar/fullcalendar.bundle.css" rel="stylesheet" type="text/css" />
         <!--RTL version:<link href="assets/vendors/custom/fullcalendar/fullcalendar.bundle.rtl.css" rel="stylesheet" type="text/css" />-->
         <!--end::Page Vendors Styles -->
-        <link rel="shortcut icon" href="assets/demo/default/media/img/logo/favicon.ico" />
     </head>
     <!-- end::Head -->
     <!-- begin::Body -->
@@ -68,9 +67,7 @@ License: You must have a valid license purchased only from themeforest(the above
                         <div class="m-stack__item m-brand  m-brand--skin-dark ">
                             <div class="m-stack m-stack--ver m-stack--general">
                                 <div class="m-stack__item m-stack__item--middle m-brand__logo">
-                                    <a href="index.html" class="m-brand__logo-wrapper">
-                                        <img alt="" src="assets/demo/default/media/img/logo/logo_default_dark.png" />
-                                    </a>
+                                   
                                 </div>
                                 <div class="m-stack__item m-stack__item--middle m-brand__tools">
                                     <!-- BEGIN: Left Aside Minimize Toggle -->
@@ -138,7 +135,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     <div class="m-content">
                         <div class="row">
 
-                            <div class="col-md-4">
+                            <div class="col-md-5">
                                 <div class="m-portlet">
                                     <div class="m-portlet__head">
                                         <div class="m-portlet__head-caption">
@@ -155,19 +152,20 @@ License: You must have a valid license purchased only from themeforest(the above
 
                                             <div class="form-group m-form__group ${error != null ? 'has-danger' : ''} row">
                                                 <label class="col-form-label col-lg-3 col-sm-12">Player ID</label>
-                                                <div class="col-lg-4 col-md-9 col-sm-12">
+                                                <div class="col-md-9 col-sm-12">
                                                     <div class="input-group date">
                                                         <input type="text" class="form-control m-input" name="id" placeholder="Enter player id"/>
-                                                        <div class="form-control-feedback">${error != null ? error : ''}</div>
+                                                      
 
                                                     </div>
+                                                      <div class="form-control-feedback">${error != null ? error : ''}</div>
 
                                                 </div>
                                             </div>
 
                                             <div class="form-group m-form__group row">
                                                 <label class="col-form-label col-lg-3 col-sm-12">Username</label>
-                                                <div class="col-lg-4 col-md-9 col-sm-12">
+                                                <div class=" col-md-9 col-sm-12">
                                                     <div class="input-group ">
                                                         <input type="text" class="form-control m-input" name="username" placeholder="Enter username"/>
 
@@ -195,7 +193,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                     <!--end::Form-->
                                 </div>
                             </div>
-                            <div class="col-md-8">
+                            <div class="col-md-7">
                                 <div class="m-portlet m-portlet--mobile ">
                                     <div class="m-portlet__head">
                                         <div class="m-portlet__head-caption">
@@ -213,21 +211,22 @@ License: You must have a valid license purchased only from themeforest(the above
                                           ${updateError != null ? '<div class="alert alert-danger" role="alert">
                                             <strong> Error</strong>  
                                             </div>':'' }
-                                          <form class="m-form m-form--fit m-form--label-align-right">
+                                          <form class="m-form m-form--fit m-form--label-align-right" action="SearchUsernameServlet">
                                               <div class="m-portlet__body">
                                                   <div class="form-group m-form__group">
                                                       <div class="input-group">
                                                           <div class="input-group-prepend">
-                                                              <button class="btn btn-secondary" type="button">Search!</button>
+                                                              <button class="btn btn-secondary" type="submit">Search!</button>
                                                           </div>
-                                                          <input type="text" class="form-control" placeholder="Search for...">
+                                                          <input type="text" class="form-control" name="searchInput">
                                                           <div class="input-group-append">
-                                                              <button class="btn btn-secondary" type="button">Search!</button>
+                                                              <button class="btn btn-secondary" type="submit">Search!</button>
                                                           </div>
                                                       </div>
                                                   </div>
                                               </div>
                                           </form>
+                                           
                                           <table class="table table-striped- table-bordered table-hover table-checkable" id="m_table_1">
                                               <thead>
                                                   <tr>
@@ -238,29 +237,21 @@ License: You must have a valid license purchased only from themeforest(the above
                                                   </tr>
                                               </thead>
                                               <tbody>
-                                                  <%
-                                                      UsernameLogic logic = new UsernameLogic();
-                                                      System.out.println(response);
-                                                      
-                                                      List<Username> usernames = logic.getAll();
-//                                                      List<Username> usernames = logic.getByUserName("JohnDoe4");
-                                                      long counter = 0;
-                                                      for (Username username : usernames) {
-                                                  %>
+                                                  <c:forEach items="${usernames}" var="username" varStatus="usernameIndex">
                                                   <tr>
-                                                      <td><%=counter++%></td>
-                                                      <td><%=username.getPlayerid()%></td>
-                                                      <td><%=username.getUsername()%></td>
+                                                      <td>${usernameIndex.index}</td>
+                                                      <td>${username.playerid}</td>
+                                                      <td>${username.username}</td>
                                                       <td >
                                                           <div class="btn-group">
 
 
-                                                              <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#m_modal_update_<%=username.getPlayerid()%>">Update</button>
+                                                              <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#m_modal_update_${username.playerid}">Update</button>
 
-                                                              <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#m_modal_<%=username.getPlayerid()%>">Delete</button>
+                                                              <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#m_modal_${username.playerid}">Delete</button>
 
                                                           </div>
-                                                          <div class="modal fade" id="m_modal_<%=username.getPlayerid()%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                          <div class="modal fade" id="m_modal_${username.playerid}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                                               <div class="modal-dialog modal-dialog-centered" role="document">
                                                                   <div class="modal-content">
                                                                       <div class="modal-header">
@@ -270,16 +261,16 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                           </button>
                                                                       </div>
                                                                       <div class="modal-body">
-                                                                          <p>You have selected to delete the username for Player ID: <strong><%=username.getPlayerid()%></strong></p>
+                                                                          <p>You have selected to delete the username for Player ID: <strong>${username.playerid}</strong></p>
                                                                       </div>
                                                                       <div class="modal-footer">
                                                                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                          <a href="DeleteUsernameServlet?id=<%=username.getPlayerid()%>" class="btn btn-danger">Delete</a>
+                                                                          <a href="DeleteUsernameServlet?id=${username.playerid}" class="btn btn-danger">Delete</a>
                                                                       </div>
                                                                   </div>
                                                               </div>
                                                           </div>
-                                                          <div class="modal fade" id="m_modal_update_<%=username.getPlayerid()%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                          <div class="modal fade" id="m_modal_update_${username.playerid}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                               <div class="modal-dialog modal-lg" role="document">
                                                                   <div class="modal-content">
                                                                       <div class="modal-header">
@@ -297,7 +288,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                                       <label class="col-form-label col-lg-3 col-sm-12">Player ID</label>
                                                                                       <div class="col-lg-4 col-md-9 col-sm-12">
                                                                                           <div class="input-group date">
-                                                                                              <input type="text" class="form-control m-input" name="id" value="<%=username.getPlayerid()%>" readonly/>
+                                                                                              <input type="text" class="form-control m-input" name="id" value="${username.playerid}" readonly/>
 
                                                                                           </div>
 
@@ -308,7 +299,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                                       <label class="col-form-label col-lg-3 col-sm-12">Username</label>
                                                                                       <div class="col-lg-4 col-md-9 col-sm-12">
                                                                                           <div class="input-group ">
-                                                                                              <input type="text" class="form-control m-input" name="username" value="<%=username.getUsername()%>"/>
+                                                                                              <input type="text" class="form-control m-input" name="username" value="${username.username}"/>
 
                                                                                           </div>
 
@@ -332,9 +323,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                       </td>
 
 
-                                                      <%
-                                                          }
-                                                      %>
+                                                      </c:forEach>
                                                   </tr>
                                               </tbody>
                                           </table>
@@ -373,10 +362,8 @@ License: You must have a valid license purchased only from themeforest(the above
             <script src="style/scripts.bundle.js" type="text/javascript"></script>
             <!--end::Global Theme Bundle -->
             <!--begin::Page Vendors -->
-            <script src="/assets/vendors/custom/fullcalendar/fullcalendar.bundle.js" type="text/javascript"></script>
             <!--end::Page Vendors -->
             <!--begin::Page Scripts -->
-            <script src="/assets/app/js/dashboard.js" type="text/javascript"></script>
             <!--end::Page Scripts -->
         </body>
         <!-- end::Body -->

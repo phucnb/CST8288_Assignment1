@@ -5,22 +5,22 @@
  */
 package view;
 
-import entity.Player;
+import entity.Username;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Map;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import logic.PlayerLogic;
+import logic.UsernameLogic;
 
 /**
  *
- * @author baphucnguyen
+ * @author phucnguyen
  */
-public class UpdatePlayerServlet extends HttpServlet {
+public class SearchUsernameServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -30,7 +30,7 @@ public class UpdatePlayerServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    
+  
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -44,22 +44,16 @@ public class UpdatePlayerServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        delete(request.getParameterMap());
-        String destination = "/jsp/Players.jsp";
-        request.setAttribute("message", "successful");
+        String searchText = request.getParameter("searchInput");
+        UsernameLogic logic = new UsernameLogic();
+        List<Username> usernames = logic.getByUserName(searchText);
+        request.setAttribute("usernames", usernames);
+          String destination = "/UsernamesServlet";
         RequestDispatcher requestDispatcher = request.getRequestDispatcher(destination);
         requestDispatcher.forward(request, response);
-        
-        
-    }
-    
-     private PlayerLogic delete(Map<String, String[]> values) {
-        PlayerLogic logic = new PlayerLogic();
-        return logic;
     }
 
-    
-    
+   
 
     /**
      * Returns a short description of the servlet.

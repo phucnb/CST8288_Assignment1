@@ -3,9 +3,12 @@
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
+    <error-page>
+		<location>/jsp/Players.jsp</location>
+	</error-page>
     <servlet>
         <servlet-name>Usernames</servlet-name>
-        <jsp-file>/jsp/Usernames.jsp</jsp-file>
+        <servlet-class>view.UsernamesServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Players</servlet-name>
@@ -39,6 +42,14 @@
         <servlet-name>UpdateUsernameServlet</servlet-name>
         <servlet-class>view.UpdateUsernameServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SearchUsernameServlet</servlet-name>
+        <servlet-class>view.SearchUsernameServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UsernamesServlet</servlet-name>
+        <servlet-class>view.UsernamesServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Usernames</servlet-name>
         <url-pattern>/Usernames</url-pattern>
@@ -71,9 +82,17 @@
         <servlet-name>DeleteUsernameServlet</servlet-name>
         <url-pattern>/DeleteUsernameServlet</url-pattern>
     </servlet-mapping>
-     <servlet-mapping>
+    <servlet-mapping>
         <servlet-name>UpdateUsernameServlet</servlet-name>
         <url-pattern>/UpdateUsernameServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchUsernameServlet</servlet-name>
+        <url-pattern>/SearchUsernameServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UsernamesServlet</servlet-name>
+        <url-pattern>/UsernamesServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
