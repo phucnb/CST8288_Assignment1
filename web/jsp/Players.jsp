@@ -121,7 +121,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                         </span></span></a></li>
                             <li class="m-menu__item m-menu__item--active" aria-haspopup="true"><a href="Players" class="m-menu__link "><span class="m-menu__link-title"> <span class="m-menu__link-wrap"> <span class="m-menu__link-text">Player</span>
                                         </span></span></a></li>
-                            <li class="m-menu__item" aria-haspopup="true"><a href="score.html" class="m-menu__link "><span class="m-menu__link-title"> <span class="m-menu__link-wrap"> <span class="m-menu__link-text">Score</span>
+                            <li class="m-menu__item" aria-haspopup="true"><a href="Scores" class="m-menu__link "><span class="m-menu__link-title"> <span class="m-menu__link-wrap"> <span class="m-menu__link-text">Score</span>
                                         </span></span></a></li>
                         </ul>
                     </div>

@@ -1,11 +1,15 @@
 <%-- 
-    Document   : Usernames.jsp
-    Created on : Feb 20, 2018, 05:32:55 AM
+    Document   : Scores.jsp
+    Created on : Feb 21, 2018, 09:14:23 AM
     Author     : Ba Phuc nguyen
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@page import="java.util.Map"%>
+<%@page import="java.util.Arrays"%>
+<%@page import="java.util.List"%>
+<%@page import="entity.Username"%>
+<%@page import="logic.UsernameLogic"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <!-- 
@@ -25,7 +29,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
     <head>
         <meta charset="utf-8" />
-        <title>Usernames Page</title>
+        <title>Scores Page</title>
         <meta name="description" content="Latest updates and statistic charts">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
         <!--begin::Web font -->
@@ -106,11 +110,11 @@ License: You must have a valid license purchased only from themeforest(the above
                         <ul class="m-menu__nav  m-menu__nav--dropdown-submenu-arrow ">
                             <li class="m-menu__item" aria-haspopup="true"><a href="index" class="m-menu__link "><span class="m-menu__link-title"> <span class="m-menu__link-wrap"> <span class="m-menu__link-text">Home</span>
                                         </span></span></a></li>
-                            <li class="m-menu__item m-menu__item--active" aria-haspopup="true"><a href="Usernames" class="m-menu__link "><span class="m-menu__link-title"> <span class="m-menu__link-wrap"> <span class="m-menu__link-text">Username</span>
+                            <li class="m-menu__item " aria-haspopup="true"><a href="Usernames" class="m-menu__link "><span class="m-menu__link-title"> <span class="m-menu__link-wrap"> <span class="m-menu__link-text">Username</span>
                                         </span></span></a></li>
                             <li class="m-menu__item" aria-haspopup="true"><a href="Players" class="m-menu__link "><span class="m-menu__link-title"> <span class="m-menu__link-wrap"> <span class="m-menu__link-text">Player</span>
                                         </span></span></a></li>
-                            <li class="m-menu__item" aria-haspopup="true"><a href="Scores" class="m-menu__link "><span class="m-menu__link-title"> <span class="m-menu__link-wrap"> <span class="m-menu__link-text">Score</span>
+                            <li class="m-menu__item m-menu__item--active" aria-haspopup="true"><a href="Scores" class="m-menu__link "><span class="m-menu__link-title"> <span class="m-menu__link-wrap"> <span class="m-menu__link-text">Score</span>
                                         </span></span></a></li>
                         </ul>
                     </div>
@@ -122,7 +126,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     <div class="m-subheader ">
                         <div class="d-flex align-items-center">
                             <div class="mr-auto">
-                                <h3 class="m-subheader__title ">Username</h3>
+                                <h3 class="m-subheader__title ">Scores</h3>
                             </div>
                         </div>
                     </div>
@@ -136,13 +140,13 @@ License: You must have a valid license purchased only from themeforest(the above
                                         <div class="m-portlet__head-caption">
                                             <div class="m-portlet__head-title">
                                                 <h3 class="m-portlet__head-text">
-                                                    Create username for Player
+                                                    Add score for Player
                                                 </h3>
                                             </div>
                                         </div>
                                     </div>
                                     <!--begin::Form-->
-                                    <form class="m-form m-form--fit m-form--label-align-right" action="CreateUsernameServlet">
+                                    <form class="m-form m-form--fit m-form--label-align-right" action="CreateScoreServlet">
                                         <div class="m-portlet__body">
 
                                             <div class="form-group m-form__group ${idError != null ? 'has-danger' : ''} row">
@@ -158,14 +162,14 @@ License: You must have a valid license purchased only from themeforest(the above
                                                 </div>
                                             </div>
 
-                                            <div class="form-group m-form__group ${usernameError != null ? 'has-danger' : ''}  row">
-                                                <label class="col-form-label col-lg-3 col-sm-12">Username</label>
+                                            <div class="form-group m-form__group ${scoreError != null ? 'has-danger' : ''}  row">
+                                                <label class="col-form-label col-lg-3 col-sm-12">Score</label>
                                                 <div class=" col-md-9 col-sm-12">
                                                     <div class="input-group ">
-                                                        <input type="text" class="form-control m-input" name="username" placeholder="Enter username"/>
+                                                        <input type="text" class="form-control m-input" name="score" placeholder="Enter score"/>
 
                                                     </div>
-                                                    <div class="form-control-feedback">${usernameError != null ? usernameError : ''}</div>
+                                                    <div class="form-control-feedback">${scoreError != null ? scoreError : ''}</div>
                                                 </div>
                                             </div>
 
@@ -203,7 +207,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                         <div class="m-portlet__head-caption">
                                             <div class="m-portlet__head-title">
                                                 <h3 class="m-portlet__head-text">
-                                                    Username's table
+                                                    Score's table
                                                 </h3>
                                             </div>
                                         </div>
@@ -316,51 +320,53 @@ License: You must have a valid license purchased only from themeforest(the above
                                         <table class="table table-striped- table-bordered table-hover table-checkable" id="m_table_1">
                                             <thead>
                                                 <tr>
-                                                    <th>#</th>
+                                                    <th>ID</th>
                                                     <th>Player ID</th>
-                                                    <th>Username</th>
+                                                    <th>Score</th>
+                                                    <th>Submission</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <c:forEach items="${usernames}" var="username" varStatus="usernameIndex">
+                                                <c:forEach items="${scores}" var="score" varStatus="usernameIndex">
                                                     <tr>
-                                                        <td>${usernameIndex.index}</td>
-                                                        <td>${username.playerid}</td>
-                                                        <td>${username.username}</td>
-                                                        <td >
+                                                        <td>${score.id}</td>
+                                                        <td>${score.playerid.id}</td>
+                                                        <td>${score.score}</td>
+                                                        <td>${score.submission}</td>
+                                                        <td>
                                                             <div class="btn-group">
 
 
-                                                                <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#m_modal_update_${username.playerid}">Update</button>
+                                                                <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#m_modal_update_${score.playerid.id}">Update</button>
 
-                                                                <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#m_modal_${username.playerid}">Delete</button>
+                                                                <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#m_modal_${score.playerid.id}">Delete</button>
 
                                                             </div>
-                                                            <div class="modal fade" id="m_modal_${username.playerid}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                            <div class="modal fade" id="m_modal_${score.playerid.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                                                     <div class="modal-content">
                                                                         <div class="modal-header">
-                                                                            <h5 class="modal-title" id="exampleModalLongTitle">Delete a username</h5>
+                                                                            <h5 class="modal-title" id="exampleModalLongTitle">Delete a score</h5>
                                                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                                 <span aria-hidden="true">&times;</span>
                                                                             </button>
                                                                         </div>
                                                                         <div class="modal-body">
-                                                                            <p>You have selected to delete the username for Player ID: <strong>${username.playerid}</strong></p>
+                                                                            <p>You have selected to delete the score for Player ID: <strong>${score.playerid.id}</strong></p>
                                                                         </div>
                                                                         <div class="modal-footer">
                                                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                            <a href="DeleteUsernameServlet?id=${username.playerid}&username=${username.username}" class="btn btn-danger">Delete</a>
+                                                                            <a href="DeleteUsernameServlet?id=${score.playerid.id}&username=${score.playerid.id}" class="btn btn-danger">Delete</a>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="modal fade" id="m_modal_update_${username.playerid}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                            <div class="modal fade" id="m_modal_update_${score.playerid.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                                 <div class="modal-dialog modal-lg" role="document">
                                                                     <div class="modal-content">
                                                                         <div class="modal-header">
-                                                                            <h5 class="modal-title" id="exampleModalLabel">Update username</h5>
+                                                                            <h5 class="modal-title" id="exampleModalLabel">Update Score</h5>
                                                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                                 <span aria-hidden="true">&times;</span>
                                                                             </button>
@@ -374,7 +380,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                                         <label class="col-form-label col-lg-3 col-sm-12">Player ID</label>
                                                                                         <div class="col-lg-4 col-md-9 col-sm-12">
                                                                                             <div class="input-group date">
-                                                                                                <input type="text" class="form-control m-input" name="id" value="${username.playerid}" readonly/>
+                                                                                                <input type="text" class="form-control m-input" name="id" value="${score.playerid.id}" readonly/>
 
                                                                                             </div>
 
@@ -385,7 +391,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                                         <label class="col-form-label col-lg-3 col-sm-12">Username</label>
                                                                                         <div class="col-lg-4 col-md-9 col-sm-12">
                                                                                             <div class="input-group ">
-                                                                                                <input type="text" class="form-control m-input" name="username" value="${username.username}"/>
+                                                                                                <input type="text" class="form-control m-input" name="username" value="${score.playerid.id}"/>
 
                                                                                             </div>
                                                                                         </div>
@@ -405,6 +411,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                     </div>
                                                                 </div>
                                                             </div>
+
                                                         </td>
 
 

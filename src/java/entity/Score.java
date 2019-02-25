@@ -69,7 +69,7 @@ public class Score implements Serializable {
         this.id = id;
     }
 
-    public int getScore() {
+    public Integer getScore() {
         return score;
     }
 

@@ -21,7 +21,11 @@ import javax.persistence.Table;
 @NamedQueries({
     @NamedQuery(name = "Username.findAll", query = "SELECT u FROM Username u")
     , @NamedQuery(name = "Username.findByPlayerid", query = "SELECT u FROM Username u WHERE u.playerid = :playerid")
-    , @NamedQuery(name = "Username.findByUsername", query = "SELECT u FROM Username u WHERE u.username LIKE :username")})
+    , @NamedQuery(name = "Username.findByUsername", query = "SELECT u FROM Username u WHERE u.username = :username")
+//    , @NamedQuery(name = "Username.findByContainKeywordInUsername", query = "SELECT u FROM Username u WHERE u.username LIKE :username")
+//    , @NamedQuery(name = "Username.findByContainKeywordPlayerid", query = "SELECT u FROM Username u WHERE u.playerid LIKE :playerid")
+})
+
 public class Username implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -96,5 +100,5 @@ public class Username implements Serializable {
     public String toString() {
         return "entity.Username[ playerid=" + playerid + " ]";
     }
-    
+
 }

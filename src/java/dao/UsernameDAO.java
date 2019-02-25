@@ -20,10 +20,10 @@ public class UsernameDAO extends GenericDAO<Username> {
         return findResults( "Username.findAll", null);
     }
     
-    public Username findByPlayerID( int playerID){
+    public List<Username>  findByPlayerID( int playerID){
         Map<String, Object> map = new HashMap<>();
         map.put("playerid", playerID);
-        return findResult( "Username.findByPlayerid", map);
+        return findResults( "Username.findByPlayerid", map);
     }
     
     public List<Username> findByUsername( String username){
@@ -31,4 +31,18 @@ public class UsernameDAO extends GenericDAO<Username> {
         map.put("username", username);
         return findResults( "Username.findByUsername", map);
     }
+    
+//    public List<Username> findByContainKeywordInUsername( String username){
+//        Map<String, Object> map = new HashMap<>();
+//        map.put("username", username);
+//        return findResults( "Username.findByContainKeywordInUsername", map);
+//    }
+//    
+//    public List<Username> findByContainKeywordPlayerid( int playerID){
+//        Map<String, Object> map = new HashMap<>();
+//        map.put("playerid", String.valueOf(playerID));
+//        System.out.println("ok111");
+//        System.out.println(String.valueOf("%"+playerID+"%"));
+//        return findResults( "Username.findByContainKeywordPlayerid", map);
+//    }
 }

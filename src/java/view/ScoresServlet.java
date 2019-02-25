@@ -5,33 +5,25 @@
  */
 package view;
 
-import entity.Username;
+import entity.Score;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import logic.ScoreLogic;
 import logic.UsernameLogic;
 
 /**
  *
  * @author baphucnguyen
  */
-@WebServlet(name = "UpdateUsernameServlet", urlPatterns = {"/UpdateUsernameServlet"})
-public class UpdateUsernameServlet extends HttpServlet {
+public class ScoresServlet extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -43,24 +35,21 @@ public class UpdateUsernameServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        UsernameLogic logic = new UsernameLogic();
-        Username username = logic.createEntity(request.getParameterMap());
-        if (username.getUsername() != null) {
-            try {
-                logic.update(username);
-                request.setAttribute("updateSuccess", "Well done! You've updated it.");
-            } catch (Exception e) {
-                request.setAttribute("updateError", e.toString());
-            }
-        } else {
-            request.setAttribute("updateError", "Please enter the valid username to update");
-        }
-
-        String destination = "/Usernames";
+        ScoreLogic logic = new ScoreLogic();
+        List<Score> scores;
+                if (request.getAttribute("scores")== null){
+                    scores = logic.getAll();
+                }else {
+                    scores = (List<Score>) request.getAttribute("scores");
+                }
+        request.setAttribute("scores", scores);
+         String destination = "/jsp/Scores.jsp";
         RequestDispatcher requestDispatcher = request.getRequestDispatcher(destination);
         requestDispatcher.forward(request, response);
+       
     }
-
+    
+    
     /**
      * Returns a short description of the servlet.
      *

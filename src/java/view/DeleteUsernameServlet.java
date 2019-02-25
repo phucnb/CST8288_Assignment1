@@ -44,9 +44,16 @@ public class DeleteUsernameServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        //create logic and entity
         UsernameLogic logic = new UsernameLogic();
         Username username = logic.createEntity(request.getParameterMap());
-        logic.delete(username);
+        try {
+             logic.delete(username);
+             request.setAttribute("deleteSuccess", "You successfully deleted this username for player!");
+        } catch (Exception e){
+            request.setAttribute("deleteError", e.toString());
+        }
+       
         String destination = "/Usernames";
         RequestDispatcher requestDispatcher = request.getRequestDispatcher(destination);
         requestDispatcher.forward(request, response);

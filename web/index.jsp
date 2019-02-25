@@ -6,11 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-<%-- 
-    Document   : UsernameTableViewFancy
-    Created on : Nov 18, 2018, 12:28:49 AM
-    Author     : Shawn Emami
---%>
+
 
 <%@page import="java.util.Map"%>
 <%@page import="java.util.Arrays"%>
@@ -94,7 +90,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                         </span></span></a></li>
                             <li class="m-menu__item" aria-haspopup="true"><a href="Players" class="m-menu__link "><span class="m-menu__link-title"> <span class="m-menu__link-wrap"> <span class="m-menu__link-text">Player</span>
                                         </span></span></a></li>
-                            <li class="m-menu__item" aria-haspopup="true"><a href="score.html" class="m-menu__link "><span class="m-menu__link-title"> <span class="m-menu__link-wrap"> <span class="m-menu__link-text">Score</span>
+                            <li class="m-menu__item" aria-haspopup="true"><a href="Scores" class="m-menu__link "><span class="m-menu__link-title"> <span class="m-menu__link-wrap"> <span class="m-menu__link-text">Score</span>
                                         </span></span></a></li>
                         </ul>
                     </div>

@@ -4,8 +4,8 @@
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
     <error-page>
-		<location>/jsp/Players.jsp</location>
-	</error-page>
+        <location>/index</location>
+    </error-page>
     <servlet>
         <servlet-name>Usernames</servlet-name>
         <servlet-class>view.UsernamesServlet</servlet-class>
@@ -13,10 +13,6 @@
     <servlet>
         <servlet-name>Players</servlet-name>
         <jsp-file>/jsp/Players.jsp</jsp-file>
-    </servlet>
-    <servlet>
-        <servlet-name>SampleForm</servlet-name>
-        <servlet-class>view.SampleForm</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>CreatePlayerServlet</servlet-name>
@@ -50,6 +46,14 @@
         <servlet-name>UsernamesServlet</servlet-name>
         <servlet-class>view.UsernamesServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Scores</servlet-name>
+        <servlet-class>view.ScoresServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CreateScoreServlet</servlet-name>
+        <servlet-class>view.CreateScoreServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Usernames</servlet-name>
         <url-pattern>/Usernames</url-pattern>
@@ -57,10 +61,6 @@
     <servlet-mapping>
         <servlet-name>Players</servlet-name>
         <url-pattern>/Players</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>SampleForm</servlet-name>
-        <url-pattern>/SampleForm</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CreatePlayerServlet</servlet-name>
@@ -93,6 +93,14 @@
     <servlet-mapping>
         <servlet-name>UsernamesServlet</servlet-name>
         <url-pattern>/UsernamesServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Scores</servlet-name>
+        <url-pattern>/Scores</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateScoreServlet</servlet-name>
+        <url-pattern>/CreateScoreServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

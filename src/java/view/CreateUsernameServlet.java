@@ -30,8 +30,6 @@ public class CreateUsernameServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -46,18 +44,28 @@ public class CreateUsernameServlet extends HttpServlet {
             throws ServletException, IOException {
         UsernameLogic logic = new UsernameLogic();
         Username username = logic.createEntity(request.getParameterMap());
-        try {
-            logic.add(username);
-            request.setAttribute("successMessage", "Well done! You've done it.");
-        } catch (RollbackException e) {
-            request.setAttribute("error", "This player's already have username.");
-        } catch (PersistenceException e){
-            request.setAttribute("error", "No result found for the ID you just entered.");
+
+        if (username.getPlayerid() != null) {
+            if (username.getPlayer() != null) {
+                if (username.getUsername() != null) {
+                    try {
+                        logic.add(username);
+                        request.setAttribute("successMessage", "Well done! You've done it.");
+                    } catch (Exception e) {
+                        request.setAttribute("error", "Select update instead of create new username for this player.");
+                    }
+                } else {
+                    request.setAttribute("usernameError", "Please enter the valid username");
+                }
+            } else {
+                request.setAttribute("idError", "This ID does not exist.");
+            }
+        } else {
+            request.setAttribute("idError", "Please enter the valid Player ID");
         }
-        
-          String destination = "/Usernames";
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher(destination);
-            requestDispatcher.forward(request, response);
+        String destination = "/Usernames";
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher(destination);
+        requestDispatcher.forward(request, response);
     }
 
     /**
@@ -71,7 +79,6 @@ public class CreateUsernameServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
 
     }
 
