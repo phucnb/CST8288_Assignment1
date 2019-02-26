@@ -8,10 +8,6 @@ package view;
 import entity.Player;
 import entity.Username;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Map;
-import javax.persistence.PersistenceException;
-import javax.persistence.RollbackException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -50,35 +46,34 @@ public class CreatePlayerServlet extends HttpServlet {
             throws ServletException, IOException {
         PlayerLogic logic = new PlayerLogic();
         Player player = logic.createEntity(request.getParameterMap());
-        System.out.println(player.getId());
+
         if (player.getId() != null) {
             if (player.getFirstName() != null) {
                 if (player.getLastName() != null) {
-                    if (player.getEmail() != null) {
-                        
-                    }else {
-                         request.setAttribute("emailError", "error");
-                    request.setAttribute("error", "Oop!");
+                    try {
+                        logic.add(player);
+                        if (!request.getParameter("username").equals("") && request.getParameter("username").length() < 51) {
+                            UsernameLogic usernameLogic = new UsernameLogic();
+                            Username username = usernameLogic.createEntity(request.getParameterMap());
+                            try {
+                                usernameLogic.add(username);
+                            }catch (Exception e){
+                                
+                            }
+                        }
+                        request.setAttribute("successMessage", "Well done! You've done it.");
+                    } catch (Exception e) {
+                        request.setAttribute("error", e.toString());
                     }
 
                 } else {
-                    request.setAttribute("lnError", "error");
-                    request.setAttribute("error", "Oop!");
+                    request.setAttribute("lNerror", "Please enter a valid last name");
                 }
             } else {
-                request.setAttribute("fnError", "error");
-                request.setAttribute("error", "Oop!");
-            }
-            try {
-                logic.add(player);
-                request.setAttribute("successMessage", "Well done! You've done it.");
-
-            } catch (Exception e) {
-                request.setAttribute("error", e.toString());
+                request.setAttribute("fNerror", "Please enter a valid first name");
             }
         } else {
-            request.setAttribute("idError", "error");
-            request.setAttribute("error", "Oop!");
+            request.setAttribute("idError", "Please enter a valid ID");
         }
 
         String destination = "/Players";

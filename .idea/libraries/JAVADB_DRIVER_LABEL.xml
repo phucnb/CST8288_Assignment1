@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="JAVADB_DRIVER_LABEL">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/JAVADB_DRIVER_LABEL/derby.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/JAVADB_DRIVER_LABEL/derbyclient.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/JAVADB_DRIVER_LABEL/derbynet.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

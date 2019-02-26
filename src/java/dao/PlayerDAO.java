@@ -44,6 +44,17 @@ public class PlayerDAO extends GenericDAO<Player> {
         return findResults("Player.findByJoined", map);
     }
 
+     public List<Player> findByJoinedBeforeDate( Date date){
+        Map<String, Object> map = new HashMap<>();
+        map.put("joined", date);
+        return findResults( "Player.findByJoinedBeforeDate", map);
+    }
+    public List<Player> findByJoinedAfterDate( Date date){
+        Map<String, Object> map = new HashMap<>();
+        map.put("joined", date);
+        return findResults( "Player.findByJoinedAfterDate", map);
+    }
+    
     public Player findByEmail(String email) {
          Map<String, Object> map = new HashMap<>();
         map.put("email", email);

@@ -1,13 +1,10 @@
 <%-- 
-    Document   : UsernameTableViewFancy
-    Created on : Nov 18, 2018, 12:28:49 AM
-    Author     : Shawn Emami
+    Document   : Scores.jsp
+    Created on : Feb 21, 2018, 09:14:23 AM
+    Author     : Ba Phuc nguyen
 --%>
 
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
-<%@page import="logic.PlayerLogic"%>
-<%@page import="entity.Player"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="java.util.Map"%>
 <%@page import="java.util.Arrays"%>
 <%@page import="java.util.List"%>
@@ -32,7 +29,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
     <head>
         <meta charset="utf-8" />
-        <title>Player</title>
+        <title>Players Page</title>
         <meta name="description" content="Latest updates and statistic charts">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
         <!--begin::Web font -->
@@ -53,10 +50,8 @@ License: You must have a valid license purchased only from themeforest(the above
         <!--RTL version:<link href="assets/demo/default/base/style.bundle.rtl.css" rel="stylesheet" type="text/css" />-->
         <!--end::Global Theme Styles -->
         <!--begin::Page Vendors Styles -->
-        <link href="/assets/vendors/custom/fullcalendar/fullcalendar.bundle.css" rel="stylesheet" type="text/css" />
         <!--RTL version:<link href="assets/vendors/custom/fullcalendar/fullcalendar.bundle.rtl.css" rel="stylesheet" type="text/css" />-->
         <!--end::Page Vendors Styles -->
-        <link rel="shortcut icon" href="assets/demo/default/media/img/logo/favicon.ico" />
     </head>
     <!-- end::Head -->
     <!-- begin::Body -->
@@ -72,9 +67,7 @@ License: You must have a valid license purchased only from themeforest(the above
                         <div class="m-stack__item m-brand  m-brand--skin-dark ">
                             <div class="m-stack m-stack--ver m-stack--general">
                                 <div class="m-stack__item m-stack__item--middle m-brand__logo">
-                                    <a href="index.html" class="m-brand__logo-wrapper">
-                                        <img alt="" src="assets/demo/default/media/img/logo/logo_default_dark.png" />
-                                    </a>
+
                                 </div>
                                 <div class="m-stack__item m-stack__item--middle m-brand__tools">
                                     <!-- BEGIN: Left Aside Minimize Toggle -->
@@ -121,7 +114,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                         </span></span></a></li>
                             <li class="m-menu__item m-menu__item--active" aria-haspopup="true"><a href="Players" class="m-menu__link "><span class="m-menu__link-title"> <span class="m-menu__link-wrap"> <span class="m-menu__link-text">Player</span>
                                         </span></span></a></li>
-                            <li class="m-menu__item" aria-haspopup="true"><a href="Scores" class="m-menu__link "><span class="m-menu__link-title"> <span class="m-menu__link-wrap"> <span class="m-menu__link-text">Score</span>
+                            <li class="m-menu__item " aria-haspopup="true"><a href="Scores" class="m-menu__link "><span class="m-menu__link-title"> <span class="m-menu__link-wrap"> <span class="m-menu__link-text">Score</span>
                                         </span></span></a></li>
                         </ul>
                     </div>
@@ -133,16 +126,15 @@ License: You must have a valid license purchased only from themeforest(the above
                     <div class="m-subheader ">
                         <div class="d-flex align-items-center">
                             <div class="mr-auto">
-                                <h3 class="m-subheader__title ">Player</h3>
+                                <h3 class="m-subheader__title ">Players</h3>
                             </div>
                         </div>
                     </div>
                     <!-- END: Subheader -->
-                    <!-- END: Subheader -->
                     <div class="m-content">
                         <div class="row">
 
-                            <div class="col-md-4">
+                            <div class="col-md-5">
                                 <div class="m-portlet">
                                     <div class="m-portlet__head">
                                         <div class="m-portlet__head-caption">
@@ -159,67 +151,58 @@ License: You must have a valid license purchased only from themeforest(the above
 
                                             <div class="form-group m-form__group ${idError != null ? 'has-danger' : ''} row">
                                                 <label class="col-form-label col-lg-3 col-sm-12">Player ID</label>
-                                                <div class="col-lg-4 col-md-9 col-sm-12">
+                                                <div class="col-md-9 col-sm-12">
                                                     <div class="input-group date">
                                                         <input type="text" class="form-control m-input" name="id" placeholder="Enter player id"/>
 
+
                                                     </div>
-                                                    <div class="form-control-feedback">${idError != null ? "Please input a valid id" : ''}</div>
+                                                    <div class="form-control-feedback">${idError != null ? idError : ''}</div>
 
                                                 </div>
                                             </div>
 
-                                            <div class="form-group m-form__group ${fnError != null ? 'has-danger' : ''} row">
+                                            <div class="form-group m-form__group ${fNerror != null ? 'has-danger' : ''}  row">
                                                 <label class="col-form-label col-lg-3 col-sm-12">First Name</label>
-                                                <div class="col-lg-4 col-md-9 col-sm-12">
+                                                <div class=" col-md-9 col-sm-12">
                                                     <div class="input-group ">
-                                                        <input type="text" class="form-control m-input" name="firstName" placeholder="Enter first name"/>
+                                                        <input type="text" class="form-control m-input" name="firstName" placeholder="Enter player"/>
 
                                                     </div>
-                                                    <div class="form-control-feedback">${fnError != null ? "Please input a valid First name" : ''}</div>
-
+                                                    <div class="form-control-feedback">${fNerror != null ? fNerror : ''}</div>
                                                 </div>
                                             </div>
-                                            <div class="form-group m-form__group ${lnError != null ? 'has-danger' : ''} row">
+
+                                            <div class="form-group m-form__group ${lNerror != null ? 'has-danger' : ''}  row">
                                                 <label class="col-form-label col-lg-3 col-sm-12">Last Name</label>
-                                                <div class="col-lg-4 col-md-9 col-sm-12">
+                                                <div class=" col-md-9 col-sm-12">
                                                     <div class="input-group ">
-                                                        <input type="text" class="form-control m-input" name="lastName" placeholder="Enter last name"/>
+                                                        <input type="text" class="form-control m-input" name="lastName" placeholder="Enter player"/>
 
                                                     </div>
-                                                    <div class="form-control-feedback">${lnError != null ? "Please input a valid last name" : ''}</div>
+                                                    <div class="form-control-feedback">${lNerror != null ? lNerror : ''}</div>
                                                 </div>
                                             </div>
 
-                                            <div class="form-group m-form__group ${emailError != null ? 'has-danger' : ''} row">
+                                            <div class="form-group m-form__group ${emailError != null ? 'has-danger' : ''}  row">
                                                 <label class="col-form-label col-lg-3 col-sm-12">Email</label>
-                                                <div class="col-lg-4 col-md-9 col-sm-12">
+                                                <div class=" col-md-9 col-sm-12">
                                                     <div class="input-group ">
-                                                        <input type="text" class="form-control m-input" name="email" placeholder="Enter email"/>
+                                                        <input type="text" class="form-control m-input" name="email" placeholder="Enter player"/>
 
                                                     </div>
-                                                    <div class="form-control-feedback">${emailError != null ? "Please input a valid Email" : ''}</div>
+                                                    <div class="form-control-feedback">${emailError != null ? emailError : ''}</div>
                                                 </div>
                                             </div>
 
-                                            <div class="form-group m-form__group row">
+                                            <div class="form-group m-form__group ${usernameError != null ? 'has-danger' : ''}  row">
                                                 <label class="col-form-label col-lg-3 col-sm-12">Username</label>
-                                                <div class="col-lg-4 col-md-9 col-sm-12">
+                                                <div class=" col-md-9 col-sm-12">
                                                     <div class="input-group ">
-                                                        <input type="text" class="form-control m-input" name="username" placeholder="Enter username"/>
+                                                        <input type="text" class="form-control m-input" name="username" placeholder="Enter player"/>
 
                                                     </div>
-
-                                                </div>
-                                            </div>
-                                            <div class="form-group m-form__group row">
-                                                <label class="col-form-label col-lg-3 col-sm-12">Joined date</label>
-                                                <div class="col-lg-4 col-md-9 col-sm-12">
-                                                    <div class="input-group ">
-                                                        <input type="date" class="form-control m-input" name="joined"/>
-
-                                                    </div>
-
+                                                    <div class="form-control-feedback">${usernameError != null ? usernameError : ''}</div>
                                                 </div>
                                             </div>
 
@@ -234,206 +217,337 @@ License: You must have a valid license purchased only from themeforest(the above
                                                 </div>
                                             </div>
                                         </div>
-                                        ${successMessage != null ? '<div class="alert alert-success" role="alert">
-                                          <strong> Well done! You\'ve done it.</strong>  
-                                          </div>':'' }
-                                          ${error != null ? '<div class="alert alert-danger" role="alert">
-                                            <strong> Oops! Error.</strong>  
-                                            </div>':'' }
 
-                                        </form>
-                                        <!--end::Form-->
-                                    </div>
+                                        <c:choose>
+                                            <c:when test="${not empty error}">
+                                                <div class="alert alert-danger" role="alert">
+                                                    <strong> ${error}</strong>  
+                                                </div>
+                                            </c:when>
+                                            <c:when test="${not empty successMessage}">
+                                                <div class="alert alert-success" role="alert">
+                                                    <strong> ${successMessage}</strong>  
+                                                </div>
+                                            </c:when>
+                                        </c:choose>
+                                    </form>
+                                    <!--end::Form-->
                                 </div>
-                                <div class="col-md-8">
-                                    <div class="m-portlet m-portlet--mobile ">
-                                        <div class="m-portlet__head">
-                                            <div class="m-portlet__head-caption">
-                                                <div class="m-portlet__head-title">
-                                                    <h3 class="m-portlet__head-text">
-                                                        Players table
-                                                    </h3>
+                            </div>
+                            <div class="col-md-7">
+                                <div class="m-portlet m-portlet--mobile ">
+                                    <div class="m-portlet__head">
+                                        <div class="m-portlet__head-caption">
+                                            <div class="m-portlet__head-title">
+                                                <h3 class="m-portlet__head-text">
+                                                    Player's table
+                                                </h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="m-portlet__body">
+                                        <c:choose>
+                                            <c:when test="${not empty updateError}">
+                                                <div class="alert alert-danger" role="alert">
+                                                    <strong> ${updateError}</strong>  
+                                                </div>
+                                            </c:when>
+                                            <c:when test="${not empty updateSuccess}">
+                                                <div class="alert alert-success" role="alert">
+                                                    <strong> ${updateSuccess}</strong>  
+                                                </div>
+                                            </c:when>
+                                            <c:when test="${not empty deleteError}">
+                                                <div class="alert alert-danger" role="alert">
+                                                    <strong> ${deleteError}</strong>  
+                                                </div>
+                                            </c:when>
+                                            <c:when test="${not empty deleteSuccess}">
+                                                <div class="alert alert-success" role="alert">
+                                                    <strong> ${deleteSuccess}</strong>  
+                                                </div>
+                                            </c:when>
+                                            <c:when test="${not empty searchError}">
+                                                <div class="alert alert-danger" role="alert">
+                                                    <strong> ${searchError}</strong>  
+                                                </div>
+                                            </c:when>
+                                        </c:choose>
+
+                                        <form class="m-form m-form--fit m-form--label-align-right" action="SearchPlayerServlet">
+                                            <div class="m-portlet__body">
+
+                                                <div class="form-group m-form__group row">
+                                                    <label class="col-form-label col-lg-3 col-sm-12">Keyword</label>
+                                                    <div class="col-md-9 col-sm-12">
+                                                        <div class="input-group">
+                                                            <input type="text" class="form-control m-input" id="keyword" name="keyword" placeholder="Enter to search..."/>
+                                                        </div>
+
+
+                                                    </div>
+                                                </div>
+                                                <div class="m-form__group form-group row">
+                                                    <label class="col-3 col-form-label">Search by</label>
+                                                    <div class="col-9">
+                                                        <div class="m-radio-inline">
+                                                            <label class="m-radio">
+                                                                <input type="radio" name="columnToSearch" value="1" checked="checked" onclick="hideDate();"> Player ID
+                                                                <span></span>
+                                                            </label>
+                                                            <label class="m-radio">
+                                                                <input type="radio" name="columnToSearch" value="2" onclick="hideDate();"> First Name
+                                                                <span></span>
+                                                            </label>
+                                                             <label class="m-radio">
+                                                                <input type="radio" name="columnToSearch" value="3" onclick="hideDate();"> Last Name
+                                                                <span></span>
+                                                            </label>
+                                                             <label class="m-radio">
+                                                                <input type="radio" name="columnToSearch" value="4" onclick="hideDate();"> Email
+                                                                <span></span>
+                                                            </label>
+                                                            <label class="m-radio">
+                                                                <input type="radio" name="columnToSearch" value="5" onclick="showDate();"> Joined Date
+                                                                <span></span>
+                                                            </label>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group m-form__group row" id="date" style="display: none">
+                                                    <label class="col-form-label col-lg-3 col-sm-12">Joined on</label>
+                                                    <div class="col-md-9 col-sm-12">
+                                                        <input type="date" class="form-control" id="submissionDate" name="date" >
+                                                        <label class="m-radio">
+                                                            <input type="radio" name="dateType" value="1"  > Before this date
+                                                            <span></span>
+                                                        </label>
+                                                        <label class="m-radio">
+                                                            <input type="radio" name="dateType" value="2"> After this date
+                                                            <span></span>
+                                                        </label>
+                                                        <label class="m-radio">
+                                                            <input type="radio" name="dateType" value="3" checked="checked"> On this date
+                                                            <span></span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <!--                                                <div class="m-form__group form-group row">
+                                                                                                    <label class="col-3 col-form-label">Keyword option</label>
+                                                                                                    <div class="col-9">
+                                                                                                        <div class="m-radio-inline">
+                                                                                                            <label class="m-radio">
+                                                                                                                <input type="radio" name="type" value="1" > Matching
+                                                                                                                <span></span>
+                                                                                                            </label>
+                                                                                                            <label class="m-radio">
+                                                                                                                <input type="radio" name="type" value="2"> Containing
+                                                                                                                <span></span>
+                                                                                                            </label>
+                                                                                                           
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>-->
+
+                                            </div>
+                                            <div class="m-portlet__foot m-portlet__foot--fit">
+                                                <div class="m-form__actions m-form__actions">
+                                                    <div class="row">
+                                                        <div class="col-lg-9 ml-lg-auto">
+                                                            <button type="submit" class="btn btn-brand">Search</button>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="m-portlet__body">
-                                            ${updateMessage != null ? '<div class="alert alert-success" role="alert">
-                                              <strong> Updated successful.</strong>  
-                                              </div>':'' }
-                                              ${updateError != null ? '<div class="alert alert-danger" role="alert">
-                                                <strong> Error</strong>  
-                                                </div>':'' }
-                                              <form class="m-form m-form--fit m-form--label-align-right">
-                                                  <div class="m-portlet__body">
-                                                      <div class="form-group m-form__group">
-                                                          <div class="input-group">
-                                                              <div class="input-group-prepend">
-                                                                  <button class="btn btn-secondary" type="button">Search!</button>
-                                                              </div>
-                                                              <input type="text" class="form-control" placeholder="Search for...">
-                                                              <div class="input-group-append">
-                                                                  <button class="btn btn-secondary" type="button">Search!</button>
-                                                              </div>
-                                                          </div>
-                                                      </div>
-                                                  </div>
-                                              </form>
-                                              <table class="table table-striped- table-bordered table-hover table-checkable" id="m_table_1">
-                                                  <thead>
-                                                      <tr>
-                                                          <th>#</th>
-                                                          <th>Player ID</th>
-                                                          <th>First Name</th>
-                                                          <th>Last Name</th>
-                                                          <th>Username</th>
-                                                          <th>Email</th>
-                                                          <th>Joined Date</th>
-                                                          <th>Action</th>
-                                                      </tr>
-                                                  </thead>
-                                                  <tbody>
-                                                      <%
-                                                          PlayerLogic logic = new PlayerLogic();
-
-                                                          List<Player> players = logic.getAll();
-                                                          long counter = 0;
-                                                          for (Player player : players) {
-                                                      %>
-                                                      <tr>
-                                                          <td><%=counter++%></td>
-                                                          <td><%=player.getId()%></td>
-                                                          <td><%=player.getFirstName()%></td>
-                                                          <td><%=player.getLastName()%></td>
-                                                          <td><%=player.getUsername()%></td>
-                                                          <td><%=player.getEmail()%></td>
-                                                          <td><%=player.getJoined().toString()%></td>
-                                                          <td >
-                                                              <div class="btn-group">
 
 
-                                                                  <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#m_modal_update_<%=player.getId()%>">Update</button>
+                                        </form>
 
-                                                                  <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#m_modal_<%=player.getId()%>">Delete</button>
-
-                                                              </div>
-                                                              <div class="modal fade" id="m_modal_<%=player.getId()%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                                                  <div class="modal-dialog modal-dialog-centered" role="document">
-                                                                      <div class="modal-content">
-                                                                          <div class="modal-header">
-                                                                              <h5 class="modal-title" id="exampleModalLongTitle">Delete a username</h5>
-                                                                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                  <span aria-hidden="true">&times;</span>
-                                                                              </button>
-                                                                          </div>
-                                                                          <div class="modal-body">
-                                                                              <p>You have selected to delete the username for Player ID: <strong><%=player.getId()%></strong></p>
-                                                                          </div>
-                                                                          <div class="modal-footer">
-                                                                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                              <a href="DeleteUsernameServlet?id=<%=player.getId()%>" class="btn btn-danger">Delete</a>
-                                                                          </div>
-                                                                      </div>
-                                                                  </div>
-                                                              </div>
-                                                              <div class="modal fade" id="m_modal_update_<%=player.getId()%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                                  <div class="modal-dialog modal-lg" role="document">
-                                                                      <div class="modal-content">
-                                                                          <div class="modal-header">
-                                                                              <h5 class="modal-title" id="exampleModalLabel">Update username</h5>
-                                                                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                  <span aria-hidden="true">&times;</span>
-                                                                              </button>
-                                                                          </div>
-                                                                          <form class="m-form m-form--fit m-form--label-align-right" action="UpdateUsernameServlet">
-                                                                              <div class="modal-body">
-
-                                                                                  <div class="m-portlet__body">
-
-                                                                                      <div class="form-group m-form__group row">
-                                                                                          <label class="col-form-label col-lg-3 col-sm-12">Player ID</label>
-                                                                                          <div class="col-lg-4 col-md-9 col-sm-12">
-                                                                                              <div class="input-group date">
-                                                                                                  <input type="text" class="form-control m-input" name="id" value="<%=player.getId()%>" readonly/>
-
+                                        <!--                                          <form class="m-form m-form--fit m-form--label-align-right" action="SearchUsernameServlet">
+                                                                                      <div class="m-portlet__body">
+                                                                                          <div class="form-group m-form__group">
+                                                                                              <div class="input-group">
+                                                                                                  <div class="input-group-prepend">
+                                                                                                      <button class="btn btn-secondary" type="submit">Search!</button>
+                                                                                                  </div>
+                                                                                                  <input type="text" class="form-control" name="searchInput">
+                                                                                                  <div class="input-group-append">
+                                                                                                      <button class="btn btn-secondary" type="submit">Search!</button>
+                                                                                                  </div>
                                                                                               </div>
-
                                                                                           </div>
                                                                                       </div>
+                                                                                  </form>-->
 
-                                                                                      <div class="form-group m-form__group row">
-                                                                                          <label class="col-form-label col-lg-3 col-sm-12">Username</label>
-                                                                                          <div class="col-lg-4 col-md-9 col-sm-12">
-                                                                                              <div class="input-group ">
-                                                                                                  <input type="text" class="form-control m-input" name="username" value="<%=player.getId()%>"/>
-
-                                                                                              </div>
-
-                                                                                          </div>
-                                                                                      </div>
-
-                                                                                  </div>
-
-
-
-
-                                                                              </div>
-                                                                              <div class="modal-footer">
-                                                                                  <button type="reset" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                                  <button type="submit" class="btn btn-info" >Update</button>
-                                                                              </div>
-                                                                          </form>
-                                                                      </div>
-                                                                  </div>
-                                                              </div>
-                                                          </td>
+                                        <table class="table table-striped- table-bordered table-hover table-checkable" id="m_table_1">
+                                            <thead>
+                                                <tr>
+                                                    <th>Player ID</th>
+                                                    <th>First Name</th>
+                                                    <th>Last Name</th>
+                                                    <th>Joined on</th>
+                                                    <th>Email</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <c:forEach items="${players}" var="player" varStatus="usernameIndex">
+                                                    <tr>
+                                                        <td>${player.id}</td>
+                                                        <td>${player.firstName}</td>
+                                                        <td>${player.lastName}</td>
+                                                        <td>${player.joined}</td>
+                                                        <td>${player.email}</td>
+                                                        <td>
+                                                            <div class="btn-group">
 
 
-                                                          <%
-                                                              }
-                                                          %>
-                                                      </tr>
-                                                  </tbody>
-                                              </table>
-                                            </div>
-                                        </div>
+                                                                <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#m_modal_update_${player.id}">Update</button>
+
+                                                                <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#m_modal_${player.id}">Delete</button>
+
+                                                            </div>
+                                                            <div class="modal fade" id="m_modal_${player.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h5 class="modal-title" id="exampleModalLongTitle">Delete a score</h5>
+                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                <span aria-hidden="true">&times;</span>
+                                                                            </button>
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                            <p>Delete this player and their username, scores?</p>
+                                                                        </div>
+                                                                        <div class="modal-footer">
+                                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                            <a href="DeletePlayerServlet?id=${player.id}" class="btn btn-danger">Delete</a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal fade" id="m_modal_update_${player.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                <div class="modal-dialog modal-lg" role="document">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h5 class="modal-title" id="exampleModalLabel">Update Player</h5>
+                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                <span aria-hidden="true">&times;</span>
+                                                                            </button>
+                                                                        </div>
+                                                                        <form class="m-form m-form--fit m-form--label-align-right" action="UpdatePlayerServlet">
+                                                                            <div class="modal-body">
+
+                                                                                <div class="m-portlet__body">
+                                                                                    <div class="form-group m-form__group row">
+                                                                                        <label class="col-form-label col-lg-3 col-sm-12">Player ID</label>
+                                                                                        <div class="col-lg-4 col-md-9 col-sm-12">
+                                                                                            <div class="input-group date">
+                                                                                                <input type="text" class="form-control m-input" name="id" value="${player.id}" readonly/>
+
+                                                                                            </div>
+
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="form-group m-form__group row">
+                                                                                        <label class="col-form-label col-lg-3 col-sm-12">First Name</label>
+                                                                                        <div class="col-lg-4 col-md-9 col-sm-12">
+                                                                                            <div class="input-group date">
+                                                                                                <input type="text" class="form-control m-input" name="firstName" value="${player.firstName}"/>
+
+                                                                                            </div>
+
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <div class="form-group m-form__group row">
+                                                                                        <label class="col-form-label col-lg-3 col-sm-12">Last Name</label>
+                                                                                        <div class="col-lg-4 col-md-9 col-sm-12">
+                                                                                            <div class="input-group ">
+                                                                                                <input type="text" class="form-control m-input" name="lastName" value="${player.lastName}"/>
+
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                                  <div class="form-group m-form__group row">
+                                                                                        <label class="col-form-label col-lg-3 col-sm-12">Email</label>
+                                                                                        <div class="col-lg-4 col-md-9 col-sm-12">
+                                                                                            <div class="input-group ">
+                                                                                                <input type="text" class="form-control m-input" name="email" value="${player.email}"/>
+
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                </div>
+
+
+
+
+                                                                            </div>
+                                                                            <div class="modal-footer">
+                                                                                <button type="reset" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                                <button type="submit" class="btn btn-info" >Update</button>
+                                                                            </div>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+
+                                                        </td>
+
+
+                                                    </c:forEach>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
-
                                 </div>
-
                             </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- end:: Body -->
+            <!-- begin::Footer -->
+            <footer class="m-grid__item     m-footer ">
+                <div class="m-container m-container--fluid m-container--full-height m-page__container">
+                    <div class="m-stack m-stack--flex-tablet-and-mobile m-stack--ver m-stack--desktop">
+                        <div class="m-stack__item m-stack__item--left m-stack__item--middle m-stack__item--last">
+                            <span class="m-footer__copyright">
+                                2017 &copy; Metronic theme by <a href="https://keenthemes.com" class="m-link">Keenthemes</a>
+                            </span>
                         </div>
                     </div>
-                    <!-- end:: Body -->
-                    <!-- begin::Footer -->
-                    <footer class="m-grid__item     m-footer ">
-                        <div class="m-container m-container--fluid m-container--full-height m-page__container">
-                            <div class="m-stack m-stack--flex-tablet-and-mobile m-stack--ver m-stack--desktop">
-                                <div class="m-stack__item m-stack__item--left m-stack__item--middle m-stack__item--last">
-                                    <span class="m-footer__copyright">
-                                        2017 &copy; Metronic theme by <a href="https://keenthemes.com" class="m-link">Keenthemes</a>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </footer>
-                    <!-- end::Footer -->
                 </div>
-                <!-- end:: Page -->
-                <!-- begin::Scroll Top -->
-                <div id="m_scroll_top" class="m-scroll-top">
-                    <i class="la la-arrow-up"></i>
-                </div>
-                <!-- end::Scroll Top -->
-                <!--begin::Global Theme Bundle -->
-                <script src="style/vendors.bundle.js" type="text/javascript"></script>
-                <script src="style/scripts.bundle.js" type="text/javascript"></script>
-                <!--end::Global Theme Bundle -->
-                <!--begin::Page Vendors -->
-                <script src="/assets/vendors/custom/fullcalendar/fullcalendar.bundle.js" type="text/javascript"></script>
-                <!--end::Page Vendors -->
-                <!--begin::Page Scripts -->
-                <!--end::Page Scripts -->
-            </body>
-            <!-- end::Body -->
+            </footer>
+            <!-- end::Footer -->
+        </div>
+        <!-- end:: Page -->
 
-        </html>
+        <!--begin::Global Theme Bundle -->
+        <script src="style/vendors.bundle.js" type="text/javascript"></script>
+        <script src="style/scripts.bundle.js" type="text/javascript"></script>
+        <script>
+                                                                    function showDate() {
+                                                                        document.getElementById('date').style.display = '';
+                                                                        document.getElementById('keyword').disabled = true;
+                                                                    }
+                                                                    function hideDate() {
+                                                                        document.getElementById('keyword').disabled = false;
+                                                                        document.getElementById('date').style.display = 'none';
+                                                                    }
+        </script>
+        <!--end::Global Theme Bundle -->
+        <!--begin::Page Vendors -->
+        <!--end::Page Vendors -->
+        <!--begin::Page Scripts -->
+        <!--end::Page Scripts -->
+    </body>
+    <!-- end::Body -->
+
+</html>

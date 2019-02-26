@@ -27,8 +27,10 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Score.findAll", query = "SELECT s FROM Score s")
     , @NamedQuery(name = "Score.findById", query = "SELECT s FROM Score s WHERE s.id = :id")
     , @NamedQuery(name = "Score.findByScore", query = "SELECT s FROM Score s WHERE s.score = :score")
-    , @NamedQuery(name = "Score.findBySubmission", query = "SELECT s FROM Score s WHERE s.submission = :submission")
-    , @NamedQuery(name = "Score.findByPlayerID", query = "SELECT s FROM Score s WHERE s.playerid.id = :playerid")})
+    , @NamedQuery(name = "Score.findBySubmission", query = "SELECT s FROM Score s WHERE date(s.submission) = :submission ")
+    , @NamedQuery(name = "Score.findBySubmissionBeforeDate", query = "SELECT s FROM Score s WHERE date(s.submission) < :submission ")  
+    , @NamedQuery(name = "Score.findBySubmissionAfterDate", query = "SELECT s FROM Score s WHERE date(s.submission) > :submission ")  
+    , @NamedQuery(name = "Score.findByPlayerId", query = "SELECT s FROM Score s WHERE s.playerid.id = :playerid")})
 public class Score implements Serializable {
 
     private static final long serialVersionUID = 1L;

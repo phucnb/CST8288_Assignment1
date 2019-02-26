@@ -241,33 +241,55 @@ License: You must have a valid license purchased only from themeforest(the above
                                             </c:when>
                                         </c:choose>
 
-                                        <form class="m-form m-form--fit m-form--label-align-right" action="SearchUsernameServlet">
+                                        <form class="m-form m-form--fit m-form--label-align-right" action="SearchScoreServlet">
                                             <div class="m-portlet__body">
 
                                                 <div class="form-group m-form__group row">
                                                     <label class="col-form-label col-lg-3 col-sm-12">Keyword</label>
                                                     <div class="col-md-9 col-sm-12">
                                                         <div class="input-group">
-                                                            <input type="text" class="form-control m-input" name="keyword" placeholder="Enter to search..."/>
+                                                            <input type="text" class="form-control m-input" id="keyword" name="keyword" placeholder="Enter to search..."/>
                                                         </div>
 
 
                                                     </div>
                                                 </div>
                                                 <div class="m-form__group form-group row">
-                                                    <label class="col-3 col-form-label">Search with</label>
+                                                    <label class="col-3 col-form-label">Search by</label>
                                                     <div class="col-9">
                                                         <div class="m-radio-inline">
                                                             <label class="m-radio">
-                                                                <input type="radio" name="columnToSearch" value="1" checked="checked"> Player ID
+                                                                <input type="radio" name="columnToSearch" value="1" checked="checked" onclick="hideDate();"> Player ID
                                                                 <span></span>
                                                             </label>
                                                             <label class="m-radio">
-                                                                <input type="radio" name="columnToSearch" value="2"> Username
+                                                                <input type="radio" name="columnToSearch" value="2" onclick="hideDate();"> Score
+                                                                <span></span>
+                                                            </label>
+                                                            <label class="m-radio">
+                                                                <input type="radio" name="columnToSearch" value="3" onclick="showDate();"> Submission Date
                                                                 <span></span>
                                                             </label>
 
                                                         </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group m-form__group row" id="date" style="display: none">
+                                                    <label class="col-form-label col-lg-3 col-sm-12">Submission</label>
+                                                    <div class="col-md-9 col-sm-12">
+                                                        <input type="date" class="form-control" id="submissionDate" name="date" >
+                                                        <label class="m-radio">
+                                                            <input type="radio" name="dateType" value="1"  > Before this date
+                                                            <span></span>
+                                                        </label>
+                                                        <label class="m-radio">
+                                                            <input type="radio" name="dateType" value="2"> After this date
+                                                            <span></span>
+                                                        </label>
+                                                        <label class="m-radio">
+                                                            <input type="radio" name="dateType" value="3" checked="checked"> On this date
+                                                            <span></span>
+                                                        </label>
                                                     </div>
                                                 </div>
                                                 <!--                                                <div class="m-form__group form-group row">
@@ -357,7 +379,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                         </div>
                                                                         <div class="modal-footer">
                                                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                            <a href="DeleteUsernameServlet?id=${score.playerid.id}&username=${score.playerid.id}" class="btn btn-danger">Delete</a>
+                                                                            <a href="DeleteScoreServlet?id=${score.id}" class="btn btn-danger">Delete</a>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -371,11 +393,20 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                                 <span aria-hidden="true">&times;</span>
                                                                             </button>
                                                                         </div>
-                                                                        <form class="m-form m-form--fit m-form--label-align-right" action="UpdateUsernameServlet">
+                                                                        <form class="m-form m-form--fit m-form--label-align-right" action="UpdateScoreServlet">
                                                                             <div class="modal-body">
 
                                                                                 <div class="m-portlet__body">
+                                                                                    <div class="form-group m-form__group row">
+                                                                                        <label class="col-form-label col-lg-3 col-sm-12">Score ID</label>
+                                                                                        <div class="col-lg-4 col-md-9 col-sm-12">
+                                                                                            <div class="input-group date">
+                                                                                                <input type="text" class="form-control m-input" name="scoreid" value="${score.id}" readonly/>
 
+                                                                                            </div>
+
+                                                                                        </div>
+                                                                                    </div>
                                                                                     <div class="form-group m-form__group row">
                                                                                         <label class="col-form-label col-lg-3 col-sm-12">Player ID</label>
                                                                                         <div class="col-lg-4 col-md-9 col-sm-12">
@@ -388,10 +419,10 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                                     </div>
 
                                                                                     <div class="form-group m-form__group row">
-                                                                                        <label class="col-form-label col-lg-3 col-sm-12">Username</label>
+                                                                                        <label class="col-form-label col-lg-3 col-sm-12">Score</label>
                                                                                         <div class="col-lg-4 col-md-9 col-sm-12">
                                                                                             <div class="input-group ">
-                                                                                                <input type="text" class="form-control m-input" name="username" value="${score.playerid.id}"/>
+                                                                                                <input type="text" class="form-control m-input" name="score" value="${score.score}"/>
 
                                                                                             </div>
                                                                                         </div>
@@ -448,6 +479,16 @@ License: You must have a valid license purchased only from themeforest(the above
         <!--begin::Global Theme Bundle -->
         <script src="style/vendors.bundle.js" type="text/javascript"></script>
         <script src="style/scripts.bundle.js" type="text/javascript"></script>
+        <script>
+            function showDate() {
+                document.getElementById('date').style.display = '';
+                document.getElementById('keyword').disabled = true;
+            }
+            function hideDate() {
+                document.getElementById('keyword').disabled = false;
+                document.getElementById('date').style.display = 'none';
+            }
+        </script>
         <!--end::Global Theme Bundle -->
         <!--begin::Page Vendors -->
         <!--end::Page Vendors -->

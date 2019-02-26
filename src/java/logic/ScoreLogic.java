@@ -17,7 +17,7 @@ public class ScoreLogic extends GenericLogic<Score, ScoreDAO> {
     public static final String PLAYER_ID = "id";
     public static final String SCORE = "score";
     public static final String SUBMISSION = "submission";
-    public static final String ID = "id";
+    public static final String ID = "scoreid";
 
     public ScoreLogic() {
         super(new ScoreDAO());
@@ -37,6 +37,14 @@ public class ScoreLogic extends GenericLogic<Score, ScoreDAO> {
 
     public List<Score> getScoreOnDate(Date submission) {
         return get(() -> dao().findBySubmission(submission));
+    }
+    
+    public List<Score> getScoreOnDateBefore(Date submission) {
+        return get(() -> dao().findBySubmissionBeforeDate(submission));
+    }
+    
+    public List<Score> getScoreOnDateAfter(Date submission) {
+        return get(() -> dao().findBySubmissionBeforeDate(submission));
     }
 
     public List<Score> getScoresForPlayerID(int playerid) {
@@ -58,7 +66,9 @@ public class ScoreLogic extends GenericLogic<Score, ScoreDAO> {
 
             }
             //set this player to Username Object
-            
+            if (parameterMap.containsKey(ID)){
+                score.setId(Integer.valueOf(parameterMap.get(ID)[0]));
+            }
             score.setSubmission(date);
             //ser username from input
             if (validation(parameterMap.get(SCORE)[0], 10, false)) {

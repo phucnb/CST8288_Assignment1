@@ -12,7 +12,7 @@
     </servlet>
     <servlet>
         <servlet-name>Players</servlet-name>
-        <jsp-file>/jsp/Players.jsp</jsp-file>
+        <servlet-class>view.PlayersServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>CreatePlayerServlet</servlet-name>
@@ -54,13 +54,33 @@
         <servlet-name>CreateScoreServlet</servlet-name>
         <servlet-class>view.CreateScoreServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DeleteScoreServlet</servlet-name>
+        <servlet-class>view.DeleteScoreServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateScoreServlet</servlet-name>
+        <servlet-class>view.UpdateScoreServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchScoreServlet</servlet-name>
+        <servlet-class>view.SearchScoreServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PlayersServlet</servlet-name>
+        <servlet-class>view.PlayersServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeletePlayerServlet</servlet-name>
+        <servlet-class>view.DeletePlayerServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchPlayerServlet</servlet-name>
+        <servlet-class>view.SearchPlayerServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Usernames</servlet-name>
         <url-pattern>/Usernames</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>Players</servlet-name>
-        <url-pattern>/Players</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CreatePlayerServlet</servlet-name>
@@ -101,6 +121,30 @@
     <servlet-mapping>
         <servlet-name>CreateScoreServlet</servlet-name>
         <url-pattern>/CreateScoreServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteScoreServlet</servlet-name>
+        <url-pattern>/DeleteScoreServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateScoreServlet</servlet-name>
+        <url-pattern>/UpdateScoreServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchScoreServlet</servlet-name>
+        <url-pattern>/SearchScoreServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Players</servlet-name>
+        <url-pattern>/Players</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeletePlayerServlet</servlet-name>
+        <url-pattern>/DeletePlayerServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchPlayerServlet</servlet-name>
+        <url-pattern>/SearchPlayerServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

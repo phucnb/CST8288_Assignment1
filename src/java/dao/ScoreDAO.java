@@ -37,10 +37,20 @@ public class ScoreDAO extends GenericDAO<Score>{
         map.put("submission", submission);
         return findResults( "Score.findBySubmission", map);
     }
+    public List<Score> findBySubmissionBeforeDate( Date submission){
+        Map<String, Object> map = new HashMap<>();
+        map.put("submission", submission);
+        return findResults( "Score.findBySubmissionBeforeDate", map);
+    }
+    public List<Score> findBySubmissionAfterDate( Date submission){
+        Map<String, Object> map = new HashMap<>();
+        map.put("submission", submission);
+        return findResults( "Score.findBySubmissionAfterDate", map);
+    }
     
     public List<Score>  findByPlayerID( int playerID){
         Map<String, Object> map = new HashMap<>();
         map.put("playerid", playerID);
-        return findResults( "Score.findByPlayerid", map);
+        return findResults( "Score.findByPlayerId", map);
     }
 }

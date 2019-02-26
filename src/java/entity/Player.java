@@ -28,7 +28,9 @@ import javax.persistence.TemporalType;
     , @NamedQuery(name = "Player.findById", query = "SELECT p FROM Player p WHERE p.id = :id")
     , @NamedQuery(name = "Player.findByFirstName", query = "SELECT p FROM Player p WHERE p.firstName = :firstName")
     , @NamedQuery(name = "Player.findByLastName", query = "SELECT p FROM Player p WHERE p.lastName = :lastName")
-    , @NamedQuery(name = "Player.findByJoined", query = "SELECT p FROM Player p WHERE p.joined = :joined")
+    , @NamedQuery(name = "Player.findByJoined", query = "SELECT p FROM Player p WHERE date(p.joined) = :joined")
+    , @NamedQuery(name = "Player.findByJoinedBeforeDate", query = "SELECT p FROM Player p WHERE date(p.joined) < :joined")
+    , @NamedQuery(name = "Player.findByJoinedAfterDate", query = "SELECT p FROM Player p WHERE date(p.joined) > :joined")
     , @NamedQuery(name = "Player.findByEmail", query = "SELECT p FROM Player p WHERE p.email = :email")})
 public class Player implements Serializable {
 

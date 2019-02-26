@@ -40,12 +40,20 @@ public class PlayerLogic extends GenericLogic<Player, PlayerDAO> {
         return get(() -> dao().findByFirstName(firstName));
     }
 
-    public List<Player> getPlayersWIthLastName(String lastName) {
+    public List<Player> getPlayersWithLastName(String lastName) {
         return get(() -> dao().findByLastName(lastName));
     }
 
     public List<Player> getPlayersJoinedOn(Date date) {
         return get(() -> dao().findByJoined(date));
+    }
+    
+     public List<Player> getPlayerOnDateBefore(Date date) {
+        return get(() -> dao().findByJoinedBeforeDate(date));
+    }
+    
+    public List<Player> getPlayerOnDateAfter(Date date) {
+        return get(() -> dao().findByJoinedBeforeDate(date));
     }
 
     public Player getPlayerWithEmail(String email) {
@@ -55,45 +63,53 @@ public class PlayerLogic extends GenericLogic<Player, PlayerDAO> {
     @Override
     public Player createEntity(Map<String, String[]> parameterMap) {
         Player player = new Player();
-        if (!parameterMap.get(ID)[0].equals("") && parameterMap.get(ID)[0].length() < 10) {
+        Date date = java.util.Calendar.getInstance().getTime();
+        player.setJoined(date);
+        if (validation(parameterMap.get(ID)[0], 10, false)) {
             try {
                 player.setId(Integer.valueOf(parameterMap.get(ID)[0]));
-                if (!parameterMap.get(FIRST_NAME)[0].equals("") && parameterMap.get(FIRST_NAME)[0].length() < 45) {
+                if (validation(parameterMap.get(FIRST_NAME)[0], 45, false)) {
                     player.setFirstName(parameterMap.get(FIRST_NAME)[0]);
-                    if (!parameterMap.get(LAST_NAME)[0].equals("") && parameterMap.get(LAST_NAME)[0].length() < 45) {
-                        player.setFirstName(parameterMap.get(LAST_NAME)[0]);
-
-                        String EMAIL_REGEX = "^[\\w-\\+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-z]{2,})$";
-                        Pattern pattern = Pattern.compile(EMAIL_REGEX);
-                        Matcher matcher = pattern.matcher(parameterMap.get(EMAIL)[0]);
-                        if (!parameterMap.get(EMAIL)[0].equals("") && parameterMap.get(EMAIL)[0].length() < 255 && matcher.matches()) {
+                    if (validation(parameterMap.get(LAST_NAME)[0], 45, false)) {
+                        player.setLastName(parameterMap.get(LAST_NAME)[0]);
+                        System.out.println(parameterMap.get(EMAIL)[0] != null);
+                        if (!parameterMap.get(EMAIL)[0].equals("")) {
                             player.setEmail(parameterMap.get(EMAIL)[0]);
+
                         }
                     }
                 }
-
             } catch (Exception e) {
-                System.out.println(e.toString());
+
             }
 
-//            player.setFirstName(parameterMap.get(FIRST_NAME)[0]);
-//            player.setLastName(parameterMap.get(LAST_NAME)[0]);
-//            if (parameterMap.containsKey(EMAIL)) {
-//                player.setEmail(parameterMap.get(EMAIL)[0]);
-//            }
-//            System.out.println(parameterMap.get(JOINED)[0]);
-//            if (parameterMap.containsKey(JOINED)) {
-//                try {
-//                    player.setJoined(new SimpleDateFormat("yyyy-MM-dd").parse(parameterMap.get(JOINED)[0]));
-//                } catch (ParseException ex) {
-//                    Logger.getLogger(PlayerLogic.class.getName()).log(Level.SEVERE, null, ex);
-//                }
-//            } else {
-//                player.setJoined(java.util.Calendar.getInstance().getTime());
-//            }
         }
-
         return player;
     }
 
+    /**
+     * to check the input is valid or not before create entity
+     *
+     * @param input : string to check, username or playerid
+     * @param length : length allowed in DB
+     * @param isNull : null able or not
+     * @return
+     */
+    public boolean validation(String input, int length, boolean isNull) {
+
+        if (!isNull) {
+            if (input.equals("")) {
+                return false;
+            } else if (input.length() > length) {
+                return false;
+            }
+        } else {
+            if (!input.equals("")) {
+                if (input.length() > length) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 }
